@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 
 
@@ -10,10 +9,13 @@ export default function Portal() {
         alert("sorry , Try another way")
     }
     useEffect(() => {
-        axios.get(`http://xapi.ngminds.com/getQuizData`)
-       .then((response) => {
-           console.log(response);
-           localStorage.setItem('tests',JSON.stringify(response.data.tests))
+        fetch(`http://xapi.ngminds.com/getQuizData`)
+         .then((result) => {
+             result.json().then((response) => {
+                 console.log(response);
+                 localStorage.setItem('tests',JSON.stringify(response.tests))
+                //  localStorage.setItem('tests',JSON.stringify(response.data.tests))
+           })
        })
        .catch((error) => {
        console.log(error)
